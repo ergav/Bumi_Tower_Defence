@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
         transform.Translate(Vector2.right * (movementSpeed * Time.deltaTime));
     }
 
-    void TakeDamage(int dmg)
+    public void TakeDamage(int dmg)
     {
         hp -= dmg;
 

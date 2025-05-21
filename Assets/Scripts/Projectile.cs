@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -26,6 +27,16 @@ public class Projectile : MonoBehaviour
         lifetime = _lifetime;
 
         StartCoroutine(LifeSpan());
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            Enemy enemy = collision.GetComponent<Enemy>();
+            enemy.TakeDamage(damage);
+            Destroy(gameObject);
+        }
     }
 
     IEnumerator LifeSpan()

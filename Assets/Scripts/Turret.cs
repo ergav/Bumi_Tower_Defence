@@ -7,9 +7,12 @@ public class Turret : MonoBehaviour
 
     [SerializeField] private float          rotationSpeed = 1.0f;
     [SerializeField] private float          detectionRadius = 50.0f;
+    [SerializeField] private float          loseTargetRange = 60.0f;
     [SerializeField] private float          rateOfFire = 1.0f;
 
     [SerializeField] private GameObject     projectilePrefab;
+
+    [SerializeField] private LayerMask      enemyLayerMask;
 
     private float shootTimer;
 
@@ -18,15 +21,60 @@ public class Turret : MonoBehaviour
         shootTimer = rateOfFire;
     }
 
+    private float detectionTimer = 0.5f;
     void Update()
     {
         RotateTowardsTarget();
+
+        detectionTimer -= Time.deltaTime;
+
+        if (detectionTimer <= 0)
+        {
+            detectionTimer = 0.5f;
+            currentTarget = GetNearestTarget();
+        }
+
+        if (currentTarget != null)
+        {
+            if (Vector2.Distance(transform.position, currentTarget.position) > loseTargetRange)
+            { 
+                currentTarget = null;
+            }
+        }
+    }
+
+    Transform GetNearestTarget()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, enemyLayerMask);
+
+        if (colliders.Length == 0)
+        {
+            return null;
+        }
+
+        Transform closest = null;
+        float minDist = Mathf.Infinity;
+
+        foreach (Collider2D collider in colliders)
+        {
+            float dist = Vector3.Distance(collider.transform.position, transform.position);
+            if (dist < minDist)
+            {
+                closest = collider.transform;
+                minDist = dist;
+            }
+        }
+
+        return closest;
     }
 
     void RotateTowardsTarget()
     {
         if (currentTarget == null)
+        {
+            shootTimer = rateOfFire;
             return;
+        }
 
         float angle = Mathf.Atan2(transform.position.y - currentTarget.position.y, transform.position.x - currentTarget.position.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle));
@@ -45,16 +93,16 @@ public class Turret : MonoBehaviour
                 shootTimer = rateOfFire;
             }
         }
-        else 
-        {
-            shootTimer = rateOfFire;
-        }
     }
 
     void FireProjectile(Vector2 dir)
     {
-        Debug.Log("FIRE!");
         Projectile firedProjectile = Instantiate(projectilePrefab.GetComponent<Projectile>(), muzzle.position, Quaternion.identity);
         firedProjectile.OnInstantiate(dir);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }
