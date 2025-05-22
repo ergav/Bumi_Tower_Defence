@@ -344,9 +344,12 @@ MonoBehaviour:
   muzzle: {fileID: 6810366753214032300}
   rotationSpeed: 250
   detectionRadius: 7
-  loseTargetRange: 60
+  loseTargetRange: 8
   rateOfFire: 1
+  damagePower: 1
+  aimDotProduct: 0.98
   projectilePrefab: {fileID: 1549496804108188229, guid: e2e634fd73edae34697b83dda221653d, type: 3}
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  priority: 0

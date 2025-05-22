@@ -169,8 +169,8 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   muzzle: {fileID: 4466941448197496349}
   rotationSpeed: 125
-  detectionRadius: 7
-  loseTargetRange: 60
+  detectionRadius: 10
+  loseTargetRange: 11
   rateOfFire: 2
   damagePower: 3
   aimDotProduct: 0.95
