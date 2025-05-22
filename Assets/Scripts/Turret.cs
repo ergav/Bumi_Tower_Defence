@@ -24,6 +24,11 @@ public class Turret : MonoBehaviour
     private float detectionTimer = 0.5f;
     void Update()
     {
+        if(GameManager.instance.prepareState)
+        {
+            return;
+        }
+
         RotateTowardsTarget();
 
         detectionTimer -= Time.deltaTime;
