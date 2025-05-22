@@ -49,6 +49,11 @@ public class GameManager : MonoBehaviour
         placingState = value;
     }
 
+    public void SetTurretPrefab(GameObject prefab)
+    {
+        turretToPlace = prefab;
+    }
+
     private bool IsMouseOverUI()
     {
         return EventSystem.current.IsPointerOverGameObject();

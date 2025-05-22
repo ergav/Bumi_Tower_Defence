@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 2
-  hp: 3
+  hp: 5
 --- !u!1 &3899017762681788867
 GameObject:
   m_ObjectHideFlags: 0

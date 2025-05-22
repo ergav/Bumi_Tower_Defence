@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private Vector2 direction;
-    private float speed = 10;
-    private float lifetime = 10;
-    private int damage = 1;
+    private Vector2                 direction;
+    private float                   speed = 10;
+    private float                   lifetime = 10;
+    private int                     damage = 1;
+    [SerializeField] private bool   destroyOnImpact = true;
 
     void Start()
     {
@@ -19,7 +20,7 @@ public class Projectile : MonoBehaviour
         transform.Translate(direction * (speed * Time.deltaTime));
     }
 
-    public void OnInstantiate(Vector2 _dir, float _speed = 10, int _damage = 1, float _lifetime = 10)
+    public void OnInstantiate(Vector2 _dir, int _damage = 1, float _speed = 10, float _lifetime = 10)
     {
         direction = _dir;
         speed = _speed;
@@ -35,6 +36,7 @@ public class Projectile : MonoBehaviour
         {
             Enemy enemy = collision.GetComponent<Enemy>();
             enemy.TakeDamage(damage);
+            if(destroyOnImpact)
             Destroy(gameObject);
         }
     }
