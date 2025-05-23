@@ -21,8 +21,6 @@ public class Turret : MonoBehaviour
 
     private float shootTimer;
 
-    [SerializeField] private float          missedEnemies;
-
     public Priority priority = Priority.prioritizeClosest;
 
     public enum Priority { prioritizeClosest, prioritizeFurthest }
@@ -148,11 +146,6 @@ public class Turret : MonoBehaviour
     {
         Projectile firedProjectile = Instantiate(projectilePrefab.GetComponent<Projectile>(), muzzle.position, Quaternion.identity);
         firedProjectile.OnInstantiate(dir, damagePower, projectileSpeed);
-    }
-
-    public void MissedEnemiesIncrement()
-    {
-        missedEnemies++;
     }
 
     private void OnDrawGizmos()

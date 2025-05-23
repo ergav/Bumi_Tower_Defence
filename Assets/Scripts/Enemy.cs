@@ -40,4 +40,9 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void SetPath(Transform[] path)
+    {
+        wayPoints = path;
+    }
 }
