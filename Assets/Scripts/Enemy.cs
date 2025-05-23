@@ -5,10 +5,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float      movementSpeed = 5;
     [SerializeField] private int        hp = 3;
 
-    void Start()
-    {
-        
-    }
+    [SerializeField] 
+    private Transform[]                 wayPoints;
+    private int                         currentWayPoint;
 
     void Update()
     {
@@ -16,7 +15,20 @@ public class Enemy : MonoBehaviour
         {
             return;
         }
-        transform.Translate(Vector2.right * (movementSpeed * Time.deltaTime));
+
+        Vector2 dirToWayPoint = Vector3.Normalize(wayPoints[currentWayPoint].position - transform.position);
+
+        transform.Translate(dirToWayPoint * (movementSpeed * Time.deltaTime));
+
+        if (Vector2.Distance(transform.position, wayPoints[currentWayPoint].position) < 0.1f)
+        {
+            currentWayPoint++;
+            if (currentWayPoint >= wayPoints.Length)
+            {
+                GameManager.instance.MissedEnemiesIncrement();
+                Destroy(gameObject);
+            }
+        }
     }
 
     public void TakeDamage(int dmg)

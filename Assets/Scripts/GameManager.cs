@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject     turretToPlace;
 
+    [SerializeField] private float          missedEnemies;
+
     void Awake()
     {
         if (instance == null)
@@ -52,6 +54,11 @@ public class GameManager : MonoBehaviour
     public void SetTurretPrefab(GameObject prefab)
     {
         turretToPlace = prefab;
+    }
+
+    public void MissedEnemiesIncrement()
+    {
+        missedEnemies++;
     }
 
     private bool IsMouseOverUI()

@@ -10,6 +10,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private float          loseTargetRange = 60.0f;
     [SerializeField] private float          rateOfFire = 1.0f;
     [SerializeField] private int            damagePower = 1;
+    [SerializeField] private float          projectileSpeed = 20;
     
     [Range(0, 1)]
     [SerializeField] private float          aimDotProduct = 0.98f;
@@ -19,6 +20,8 @@ public class Turret : MonoBehaviour
     [SerializeField] private LayerMask      enemyLayerMask;
 
     private float shootTimer;
+
+    [SerializeField] private float          missedEnemies;
 
     public Priority priority = Priority.prioritizeClosest;
 
@@ -144,7 +147,12 @@ public class Turret : MonoBehaviour
     void FireProjectile(Vector2 dir)
     {
         Projectile firedProjectile = Instantiate(projectilePrefab.GetComponent<Projectile>(), muzzle.position, Quaternion.identity);
-        firedProjectile.OnInstantiate(dir, damagePower);
+        firedProjectile.OnInstantiate(dir, damagePower, projectileSpeed);
+    }
+
+    public void MissedEnemiesIncrement()
+    {
+        missedEnemies++;
     }
 
     private void OnDrawGizmos()
