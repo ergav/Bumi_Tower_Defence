@@ -3,6 +3,7 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     [SerializeField] private Transform      currentTarget;
+    [SerializeField] private Transform      turretBody;
     [SerializeField] private Transform      muzzle;
 
     [SerializeField] private float          rotationSpeed = 1.0f;
@@ -123,12 +124,12 @@ public class Turret : MonoBehaviour
             return;
         }
 
-        float angle = Mathf.Atan2(transform.position.y - currentTarget.position.y, transform.position.x - currentTarget.position.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(turretBody.position.y - currentTarget.position.y, turretBody.position.x - currentTarget.position.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        turretBody.rotation = Quaternion.RotateTowards(turretBody.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-        Vector2 forward = transform.TransformDirection(Vector2.left);
-        Vector2 toOther = Vector3.Normalize(currentTarget.position - transform.position);
+        Vector2 forward = turretBody.TransformDirection(Vector2.left);
+        Vector2 toOther = Vector3.Normalize(currentTarget.position - turretBody.position);
 
         if (Vector3.Dot(forward, toOther) > 0.98f)
         {

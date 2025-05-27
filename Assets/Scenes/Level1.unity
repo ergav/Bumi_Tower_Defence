@@ -1746,7 +1746,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4693048208371251528, guid: 7bd067193b2ad0d46973bf9fc379af26, type: 3}
+  m_Sprite: {fileID: -2644504261347001169, guid: 5d45663988b253948a320ae22ccf5326, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2069,7 +2069,7 @@ MonoBehaviour:
         m_MethodName: SetTurretPrefab
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8973734856848487762, guid: 0db7ce566ffe65f4e968419fd9bf47d1, type: 3}
+          m_ObjectArgument: {fileID: 8973734856848487762, guid: cfac869b8e1d07d4aae360eef4d0ad87, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
